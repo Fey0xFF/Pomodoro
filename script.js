@@ -27,8 +27,13 @@ $(document).ready(function () {
     })
 
     $('#start').click(function() {
-      timer = focustime;
-      $('.clock').val(timer);
+        timer = focustime;
+        $('.settinggui').slideToggle(false);
+        $('.clock').val(timer);
+    })
+
+    $('#stop').click(function() {
+      $('.settinggui').slideToggle(true);
     })
 
 });
