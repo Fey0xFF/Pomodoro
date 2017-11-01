@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
   //initialization
-  var breakTime = 180, focusTime = 60;
+  var breakTime = 300, focusTime = 1500;
   var curTime = focusTime, testTime = curTime;
   var clock = true;
   var status = "break";
@@ -31,7 +31,7 @@ $(document).ready(function () {
     $("#settinggui").hide(1000);
     if (clock === true) {
       testTime = curTime;
-      clock = setInterval(countDown,100);
+      clock = setInterval(countDown,1000);
     }
     function countDown() {
       if (testTime === 0) {
