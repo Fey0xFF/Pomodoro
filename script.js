@@ -26,6 +26,7 @@ $(document).ready(function () {
   }
 
   function startTimer() {
+    $("#setting").slideToggle();
     if (clock === true) {
       testTime = curTime;
       clock = setInterval(countDown,1000);
@@ -104,7 +105,5 @@ $(document).ready(function () {
   $("#pause").click(pauseTimer);
   $("#stop").click(stopTimer);
   $("#reset").click(resetTimer);
-
-
 
 })

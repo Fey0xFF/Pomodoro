@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>Chiisai Pomo</title>
     <link rel = "stylesheet" type = "text/css" href = "style.css"></style>
     </head>
 
     <body>
-        <h1>Chiisai Pomo</h1>
+        <h1>CHIISAI POMO</h1>
 
-        <div class = "settinggui">
-            <h2>Settings</h2>
+        <div id = "settinggui" class = "settinggui">
+            <h2>SETTINGS</h2>
             <div id = "focus">
-                <p>FOCUS</p>
-                <button id = "ftup">up</button>
-                <button id = "ftdown">down</button>
-                <span id = "testTime">25</input>
+                <p>FOCUS TIME</p>
+                <button id = "ftup">MORE</button>
+                <button id = "ftdown">LESS</button>
+                <div id = "ftime">
+                  <span id = "testTime">25</input>
+                </div>
             </div>
             <div id = "break">
-                <p>BREAK</p>
-                <button id = "btup">up</button>
-                <button id = "btdown">down</button>
-                <span id = "testBreak">5</input>
-            </div>
+                <p>BREAK TIME</p>
+                <button id = "btup">MORE</button>
+                <button id = "btdown">LESS</button>
+                <div id = "btime">
+                  <span id = "testBreak">5</input>
+                </div>
+          </div>
         </div>
 
-        <div class = "clockgui">
-            <div id = "timer">
-                <p>TIMER</p>
-                <div id = "clock"></div>
-
-            </div>
-            <button id = "start">Start</button>
-            <button id = "stop">Stop</button>
-            <button id = "pause">Pause</button>
-            <button id = "reset">Reset</button>
-
+        <div id = "clockgui" class = "settinggui">
+          <div id = "timer">
+            <p>TIMER</p>
+            <div id = "clock"></div>
+            <button id = "start">START</button>
+            <button id = "stop">STOP</button>
+            <button id = "pause">PAUSE</button>
+            <button id = "reset">RESET</button>
+          </div>
         </div>
+
+        <footer>Feythelus Design</footer>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script type = "text/javascript" src = "script.js"></script>
     </body>
