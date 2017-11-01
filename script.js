@@ -1,9 +1,11 @@
 $(document).ready(function () {
 
   //initialization
-  var breakTime = 300, focusTime = 1500;
+  var breakTime = 180, focusTime = 60;
   var curTime = focusTime, testTime = curTime;
   var clock = true;
+  var status = "break";
+  var notification = new Audio("notification.wav");
   $("#clock").text(timeStr(focusTime));
 
   //functions
@@ -26,13 +28,24 @@ $(document).ready(function () {
   }
 
   function startTimer() {
-    $("#setting").slideToggle();
+    $("#settinggui").hide(1000);
     if (clock === true) {
       testTime = curTime;
-      clock = setInterval(countDown,1000);
+      clock = setInterval(countDown,100);
     }
     function countDown() {
       if (testTime === 0) {
+        notification.play();
+        switch(status) {
+          case "break":
+          testTime = breakTime;
+          status = "focus";
+          break;
+          case "focus":
+          testTime = focusTime;
+          status = "break";
+          break;
+        }
         $("#clock").text(timeStr(testTime));
       } else {
         testTime--;
@@ -42,12 +55,14 @@ $(document).ready(function () {
   }
 
   function pauseTimer() {
+    $("#settinggui").show(1000);
     clearInterval(clock);
     clock = true;
     curTime = testTime;
   }
 
   function stopTimer() {
+    $("#settinggui").show(1000);
     clearInterval(clock);
     clock = true;
     testTime = curTime = focusTime;
@@ -55,6 +70,7 @@ $(document).ready(function () {
   }
 
   function resetTimer() {
+    $("#settinggui").show(1000);
     clearInterval(clock);
     clock = true;
     testTime = curTime = focusTime = minSec(25);
