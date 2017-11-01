@@ -1,7 +1,12 @@
-p {
-    text-align: center;
+* {
+  font-family: sans-serif;
 }
 
-#settinggui {
-    display: inline-block;
+body {
+  background-color: lightgreen;
+  border-width: = 0;
+}
+
+button {
+
 }

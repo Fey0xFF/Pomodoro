@@ -1,66 +1,110 @@
 $(document).ready(function () {
 
-    var breaktime = parseInt($('#breaktime').val());
-    var focustime = parseInt($('#focustime').val());
-    //var timer = parseInt($('#focustime').val());
-    var timermm = 13, timerss = 37;
-    var sessionComplete = false;
-    console.log(timer);
-    $('.clock').val(timermm + ":" + timerss);
+  //initialization
+  var breakTime = 300, focusTime = 1500;
+  var curTime = focusTime, testTime = curTime;
+  var clock = true;
+  $("#clock").text(timeStr(focusTime));
 
-    $('#ftup').click(function() {
-      focustime += 1;
-      $('#focustime').val(focustime);
-    })
-    $('#ftdown').click(function() {
-      focustime -= 1;
-      $('#focustime').val(focustime);
-    })
+  //functions
+  function minSec(min) {
+    return min * 60;
+  }
 
-    $('#btup').click(function() {
-      breaktime += 1;
-      $('#breaktime').val(breaktime);
-    })
-    $('#btdown').click(function() {
-      breaktime -= 1;
-      $('#breaktime').val(breaktime);
-    })
+  function timeStr(sec) {
+    var hour = 0, minute = 0;
+    hour = Math.floor(sec / 3600);
+    sec = sec - (3600 * hour);
+    minute = Math.floor(sec / 60);
+    sec = sec - (60 * minute);
 
-    function startTimer() {
-      var timer = setInterval(function beginTime() {
-        timerss = timerss - 1;
-        $('.clock').val(timermm + ":" + timerss);
-        console.log(sessionComplete);
+    return(hour > 0) ? n(hour) + ":" + n(minute) + ":" + n(sec) : n(minute) + ":" + n(sec);
 
-        if (timermm == 0 && timerss == 0){
-          if (sessionComplete == true) {
-            clearInterval(timer);
-          }
-          timermm = breaktime;
-          sessionComplete = true;
-        }
-        if (timerss == 0 & timermm >= 0){
-          timerss = 59;
-          timermm = timermm - 1;
-        }
-      },25)
+    function n(n) {
+      return n > 9 ? "" + n : "0" + n;
     }
+  }
 
-    $('#start').click(function() {
-      if (sessionComplete == true) {
-        sessionComplete = false;
+  function startTimer() {
+    if (clock === true) {
+      testTime = curTime;
+      clock = setInterval(countDown,1000);
+    }
+    function countDown() {
+      if (testTime === 0) {
+        $("#clock").text(timeStr(testTime));
+      } else {
+        testTime--;
+        $("#clock").text(timeStr(testTime));
       }
-      timermm = focustime - 1;
-      timerss = 59;
-      $('.clock').val(timermm + ":" + timerss);
-      startTimer();
-      //$('.settinggui').slideToggle(false);
-    })
+    }
+  }
 
-    $('#stop').click(function() {
-      clearInterval(timer);
-      //$('.settinggui').slideToggle(true);
-    })
+  function pauseTimer() {
+    clearInterval(clock);
+    clock = true;
+    curTime = testTime;
+  }
+
+  function stopTimer() {
+    clearInterval(clock);
+    clock = true;
+    testTime = curTime = focusTime;
+    $("#clock").text(timeStr(focusTime));
+  }
+
+  function resetTimer() {
+    clearInterval(clock);
+    clock = true;
+    testTime = curTime = focusTime = minSec(25);
+    breakTime = minSec(5);
+    $("#testTime").text(25);
+    $("#testBreak").text(5);
+    $("#clock").text(timeStr(testTime));
+  }
+
+  //click handlers
+  $("#ftup").click(function() {
+    if (testTime === focusTime) {
+      var ft = $("#testTime").text();
+      ft++;
+      $("#testTime").text(ft);
+      testTime = curTime = focusTime = eval(minSec($("#testTime").text()));
+      $("#clock").text(timeStr(focusTime));
+    }
+  })
+  $("#ftdown").click(function() {
+    if (testTime === focusTime && $("#testTime").text() > 1) {
+      var ft = $("#testTime").text();
+      ft--;
+      $("#testTime").text(ft);
+      testTime = curTime = focusTime = eval(minSec($("#testTime").text()));
+      $("#clock").text(timeStr(focusTime));
+    }
+  })
+  $("#btup").click(function() {
+    if (testTime === focusTime) {
+      var bt = $("#testBreak").text();
+      bt++;
+      $("#testBreak").text(bt);
+      breakTime = eval(minSec($("#testBreak").text()));
+    }
+  })
+  $("#btdown").click(function() {
+    if (testTime === focusTime && $("#testBreak").text() > 1) {
+      var bt = $("#testBreak").text();
+      bt--;
+      $("#testBreak").text(bt);
+      breakTime = eval(minSec($("#testBreak").text()));
+    }
+  })
+
+  // click calls
+  $("#start").click(startTimer);
+  $("#pause").click(pauseTimer);
+  $("#stop").click(stopTimer);
+  $("#reset").click(resetTimer);
 
 
-});
+
+})
